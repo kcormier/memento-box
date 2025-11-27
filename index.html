@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Memento Box - Release the item, keep the memory">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Memento Box</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen">
+            <header class="header">
+                <h1 class="app-title">My Memories</h1>
+                <p class="subtitle">Release the item, keep the memory</p>
+            </header>
+
+            <div class="status-bar">
+                <span id="sync-status" class="sync-status">🟢 All saved</span>
+                <span id="item-count" class="item-count">0 memories</span>
+            </div>
+
+            <div id="memory-list" class="memory-list">
+                <div class="empty-state">
+                    <div class="empty-icon">📦</div>
+                    <h2>No memories yet</h2>
+                    <p>Tap the button below to capture your first memory</p>
+                </div>
+            </div>
+
+            <button id="add-memory-btn" class="fab" aria-label="Add new memory">
+                <span class="fab-icon">+</span>
+            </button>
+        </div>
+
+        <!-- Capture Screen -->
+        <div id="capture-screen" class="screen hidden">
+            <header class="header">
+                <button class="back-btn" id="back-to-home">← Back</button>
+                <h1 class="screen-title">New Memory</h1>
+            </header>
+
+            <!-- Step 1: Photo -->
+            <div id="step-photo" class="capture-step">
+                <div class="step-indicator">Step 1 of 3</div>
+                <h2 class="step-title">Take a Photo</h2>
+
+                <div class="photo-preview" id="photo-preview">
+                    <div class="photo-placeholder">
+                        <span class="placeholder-icon">📷</span>
+                        <p>No photo yet</p>
+                    </div>
+                </div>
+
+                <input type="file" id="photo-input" accept="image/*" capture="environment" hidden>
+                <button class="btn-primary btn-large" id="take-photo-btn">
+                    📷 Take Photo
+                </button>
+            </div>
+
+            <!-- Step 2: Audio -->
+            <div id="step-audio" class="capture-step hidden">
+                <div class="step-indicator">Step 2 of 3</div>
+                <h2 class="step-title">Tell the Story</h2>
+
+                <div class="audio-visualizer" id="audio-visualizer">
+                    <div class="audio-placeholder">
+                        <span class="placeholder-icon">🎤</span>
+                        <p id="audio-status">Ready to record</p>
+                    </div>
+                </div>
+
+                <button class="btn-primary btn-large" id="record-audio-btn">
+                    🎤 Start Recording
+                </button>
+                <button class="btn-secondary btn-large hidden" id="stop-audio-btn">
+                    ⏹ Stop Recording
+                </button>
+                <button class="btn-secondary btn-large hidden" id="skip-audio-btn">
+                    Skip for now
+                </button>
+            </div>
+
+            <!-- Step 3: Status -->
+            <div id="step-status" class="capture-step hidden">
+                <div class="step-indicator">Step 3 of 3</div>
+                <h2 class="step-title">What should we do with it?</h2>
+
+                <div class="status-grid">
+                    <button class="status-btn" data-status="KEEP">
+                        <span class="status-icon">💚</span>
+                        <span class="status-label">Keep</span>
+                    </button>
+                    <button class="status-btn" data-status="GIFT">
+                        <span class="status-icon">🎁</span>
+                        <span class="status-label">Gift</span>
+                    </button>
+                    <button class="status-btn" data-status="DONATE">
+                        <span class="status-icon">🤝</span>
+                        <span class="status-label">Donate</span>
+                    </button>
+                    <button class="status-btn" data-status="DRAFT">
+                        <span class="status-icon">📝</span>
+                        <span class="status-label">Decide Later</span>
+                    </button>
+                </div>
+
+                <div class="heavy-toggle">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="needs-help-checkbox">
+                        <span class="checkbox-text">📦 I need help moving this</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Screen -->
+        <div id="detail-screen" class="screen hidden">
+            <header class="header">
+                <button class="back-btn" id="back-to-home-from-detail">← Back</button>
+                <h1 class="screen-title">Memory Details</h1>
+            </header>
+
+            <div class="detail-content">
+                <img id="detail-photo" class="detail-photo" alt="Memory photo">
+
+                <div class="detail-info">
+                    <div class="status-badge" id="detail-status">Keep</div>
+                    <p class="detail-date" id="detail-date">Created just now</p>
+                </div>
+
+                <audio id="detail-audio" controls class="detail-audio hidden">
+                    Your browser does not support audio playback.
+                </audio>
+
+                <div class="detail-actions">
+                    <button class="btn-secondary" id="delete-memory-btn">🗑 Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Register service worker for offline support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed'));
+        }
+    </script>
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
