@@ -6,13 +6,16 @@
 
 ## 🎨 Concept Preview
 
-````carousel
+### Concept Preview
+
 ![Home Screen](docs/images/home_screen.png)
-<!-- slide -->
+*Home Screen: Your collection at a glance.*
+
 ![Capture Screen](docs/images/capture_screen.png)
-<!-- slide -->
+*Capture Screen: Simple photo and audio recording.*
+
 ![Review Screen](docs/images/review_screen.png)
-````
+*Review Screen: Decide what to do with the item.*
 
 ## 🎯 Mission
 To empower seniors to let go of physical clutter without losing the emotional connection to their memories, and to facilitate the transfer of family history to the next generation.
